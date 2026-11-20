@@ -14,9 +14,9 @@
   ];
 
   const outletPaths = {
-    organic: { path: document.getElementById("pipe-compost"), color: "#22c55e" },
-    recycle: { path: document.getElementById("pipe-recycle"), color: "#3b82f6" },
-    landfill: { path: document.getElementById("pipe-landfill"), color: "#94a3b8" },
+    organic: { path: document.getElementById("pipe-compost"), color: "#15803d" },
+    recycle: { path: document.getElementById("pipe-recycle"), color: "#1d4ed8" },
+    landfill: { path: document.getElementById("pipe-landfill"), color: "#475569" },
   };
 
   let running = true;

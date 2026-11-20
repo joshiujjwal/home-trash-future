@@ -3,205 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home Trash Future — End-to-End Automated Household Waste Pipeline</title>
+  <title>home-trash-future — End-to-End Automated Household Waste</title>
   <link rel="stylesheet" href="src/styles.css" />
 </head>
 <body>
-  <header class="hero">
-    <div class="container">
-      <span class="badge">🚧 Open Architecture &amp; Interactive Spec</span>
-      <h1>Home Trash Future</h1>
-      <p class="subtitle">
-        An end-to-end household waste pipeline — inspired by whole-home pneumatic laundry vacuums,
-        robotic sorting, compact heat-sealed task bags, and ~$500–$1,000 food dehydrators.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#simulator">Watch Pipeline Animation</a>
-        <a class="btn btn-secondary" href="#options">Compare Options &amp; Costs</a>
-        <a class="btn btn-secondary" href="https://github.com/joshiujjwal/home-trash-future/issues" target="_blank" rel="noopener noreferrer">Open Questions on GitHub</a>
+  <main class="page">
+    <header class="doc-header">
+      <h1>home-trash-future</h1>
+      <blockquote class="manifesto">
+        &gt; a working spec for zero-touch household waste.<br />
+        &gt; room vacuum ports → central robotic sorter → compact heat-sealed task bags.
+      </blockquote>
+      <div class="header-links">
+        <a href="#pipeline">Pipeline</a>
+        <a href="#options">Options &amp; Costs</a>
+        <a href="#questions">Open Questions</a>
+        <a href="https://github.com/joshiujjwal/home-trash-future/issues" target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="container">
-    <!-- Interactive Pipeline Animation -->
-    <section id="simulator" class="card">
-      <div class="section-header">
-        <div>
-          <h2>1. End-to-End Pipeline Animation</h2>
-          <p class="muted">Follow each waste item from room inlets through pneumatic tubes to the central robotic hub.</p>
-        </div>
-        <div class="controls">
+    <section id="pipeline" class="section">
+      <div class="section-head">
+        <h2>## the pipeline</h2>
+        <div class="controls" role="group" aria-label="Simulation controls">
           <button id="toggle-play" class="btn btn-primary" type="button">Pause</button>
-          <button id="drop-organic" class="btn btn-chip" type="button">+ Organic</button>
-          <button id="drop-recycle" class="btn btn-chip" type="button">+ Recyclable</button>
-          <button id="drop-landfill" class="btn btn-chip" type="button">+ Landfill</button>
+          <button id="drop-organic" class="btn" type="button">+ Organic</button>
+          <button id="drop-recycle" class="btn" type="button">+ Recyclable</button>
+          <button id="drop-landfill" class="btn" type="button">+ Landfill</button>
         </div>
       </div>
+      <p class="lead">
+        Drop items into any room inlet. Dry waste travels by vacuum or gravity to one central hub; wet food waste stays local in a ~$500–$1,000 dehydrator.
+      </p>
 
-      <div class="svg-wrap">
-        <svg id="pipeline-svg" viewBox="0 0 960 420" role="img" aria-label="Animated household waste sorting and compaction pipeline">
-          <defs>
-            <linearGradient id="tubeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#334155" />
-              <stop offset="100%" stop-color="#475569" />
-            </linearGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-              <feMerge>
-                <feMergeNode in="coloredBlur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-
-          <!-- Background Grid -->
-          <rect width="960" height="420" rx="14" fill="#0f172a" />
-
-          <!-- Pneumatic / Gravity Pipes -->
-          <path id="pipe-kitchen" d="M 110 85 C 210 85, 220 205, 330 205" fill="none" stroke="url(#tubeGrad)" stroke-width="16" stroke-linecap="round" />
-          <path id="pipe-bath" d="M 110 205 L 330 205" fill="none" stroke="url(#tubeGrad)" stroke-width="16" stroke-linecap="round" />
-          <path id="pipe-office" d="M 110 325 C 210 325, 220 205, 330 205" fill="none" stroke="url(#tubeGrad)" stroke-width="16" stroke-linecap="round" />
+      <div class="diagram-frame">
+        <svg id="pipeline-svg" viewBox="0 0 920 380" role="img" aria-label="Animated household waste sorting and compaction pipeline">
+          <!-- Pipes -->
+          <path id="pipe-kitchen" d="M 130 70 C 225 70, 235 190, 330 190" fill="none" stroke="#d6d3cd" stroke-width="12" stroke-linecap="round" />
+          <path id="pipe-bath" d="M 130 190 L 330 190" fill="none" stroke="#d6d3cd" stroke-width="12" stroke-linecap="round" />
+          <path id="pipe-office" d="M 130 310 C 225 310, 235 190, 330 190" fill="none" stroke="#d6d3cd" stroke-width="12" stroke-linecap="round" />
 
           <!-- Hub to Sorter Outputs -->
-          <path id="pipe-compost" d="M 470 205 C 550 205, 560 90, 650 90" fill="none" stroke="#166534" stroke-width="14" stroke-linecap="round" />
-          <path id="pipe-recycle" d="M 470 205 L 650 205" fill="none" stroke="#1d4ed8" stroke-width="14" stroke-linecap="round" />
-          <path id="pipe-landfill" d="M 470 205 C 550 205, 560 320, 650 320" fill="none" stroke="#64748b" stroke-width="14" stroke-linecap="round" />
+          <path id="pipe-compost" d="M 470 190 C 545 190, 555 70, 640 70" fill="none" stroke="#bbf7d0" stroke-width="10" stroke-linecap="round" />
+          <path id="pipe-recycle" d="M 470 190 L 640 190" fill="none" stroke="#bfdbfe" stroke-width="10" stroke-linecap="round" />
+          <path id="pipe-landfill" d="M 470 190 C 545 190, 555 310, 640 310" fill="none" stroke="#e2e8f0" stroke-width="10" stroke-linecap="round" />
 
           <!-- Output to Curbside -->
-          <path d="M 790 90 L 855 90" fill="none" stroke="#22c55e" stroke-width="6" stroke-dasharray="6 4" />
-          <path d="M 790 205 L 855 205" fill="none" stroke="#3b82f6" stroke-width="6" stroke-dasharray="6 4" />
-          <path d="M 790 320 L 855 320" fill="none" stroke="#94a3b8" stroke-width="6" stroke-dasharray="6 4" />
+          <line x1="790" y1="70" x2="835" y2="70" stroke="#15803d" stroke-width="2" stroke-dasharray="4 4" />
+          <line x1="790" y1="190" x2="835" y2="190" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="4 4" />
+          <line x1="790" y1="310" x2="835" y2="310" stroke="#475569" stroke-width="2" stroke-dasharray="4 4" />
 
-          <!-- Room Nodes -->
-          <g class="node">
-            <rect x="24" y="55" width="96" height="60" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
-            <text x="72" y="82" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">Kitchen</text>
-            <text x="72" y="100" text-anchor="middle" fill="#94a3b8" font-size="10">Vacuum Port</text>
+          <!-- Room Inlets -->
+          <g>
+            <rect x="16" y="42" width="114" height="56" rx="6" fill="#ffffff" stroke="#1c1917" stroke-width="1.5" />
+            <text x="73" y="67" text-anchor="middle" fill="#1c1917" font-size="13" font-weight="600">Kitchen</text>
+            <text x="73" y="84" text-anchor="middle" fill="#57534e" font-size="11">Vacuum port</text>
           </g>
-          <g class="node">
-            <rect x="24" y="175" width="96" height="60" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
-            <text x="72" y="202" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">Bathrooms</text>
-            <text x="72" y="220" text-anchor="middle" fill="#94a3b8" font-size="10">Gravity Chute</text>
+          <g>
+            <rect x="16" y="162" width="114" height="56" rx="6" fill="#ffffff" stroke="#1c1917" stroke-width="1.5" />
+            <text x="73" y="187" text-anchor="middle" fill="#1c1917" font-size="13" font-weight="600">Bathrooms</text>
+            <text x="73" y="204" text-anchor="middle" fill="#57534e" font-size="11">Gravity chute</text>
           </g>
-          <g class="node">
-            <rect x="24" y="295" width="96" height="60" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" />
-            <text x="72" y="322" text-anchor="middle" fill="#f8fafc" font-size="13" font-weight="600">Office/Bed</text>
-            <text x="72" y="340" text-anchor="middle" fill="#94a3b8" font-size="10">Dry Port</text>
+          <g>
+            <rect x="16" y="282" width="114" height="56" rx="6" fill="#ffffff" stroke="#1c1917" stroke-width="1.5" />
+            <text x="73" y="307" text-anchor="middle" fill="#1c1917" font-size="13" font-weight="600">Office / Bed</text>
+            <text x="73" y="324" text-anchor="middle" fill="#57534e" font-size="11">Dry port</text>
           </g>
 
           <!-- Central Robotic Hub -->
-          <g class="node">
-            <rect x="330" y="145" width="140" height="120" rx="14" fill="#1e293b" stroke="#a855f7" stroke-width="2" />
-            <text x="400" y="182" text-anchor="middle" fill="#f8fafc" font-size="14" font-weight="700">Central Hub</text>
-            <text x="400" y="202" text-anchor="middle" fill="#c084fc" font-size="11">Vision + NIR + Weight</text>
-            <text x="400" y="220" text-anchor="middle" fill="#94a3b8" font-size="10">Robotic Diverter</text>
-            <circle cx="400" cy="242" r="7" fill="#a855f7" filter="url(#glow)" />
+          <g>
+            <rect x="330" y="132" width="140" height="116" rx="8" fill="#1c1917" stroke="#1c1917" stroke-width="1.5" />
+            <text x="400" y="172" text-anchor="middle" fill="#faf9f6" font-size="14" font-weight="600">Central Hub</text>
+            <text x="400" y="193" text-anchor="middle" fill="#d6d3d1" font-size="11">Vision + NIR + Load</text>
+            <text x="400" y="212" text-anchor="middle" fill="#a8a29e" font-size="10">Air-jet / delta diverter</text>
           </g>
 
-          <!-- Processing & Compaction Stations -->
-          <g class="node">
-            <rect x="650" y="55" width="145" height="70" rx="10" fill="#14532d" stroke="#22c55e" stroke-width="1.5" />
-            <text x="722" y="83" text-anchor="middle" fill="#f0fdf4" font-size="12" font-weight="700">Compost / Dehydrate</text>
-            <text x="722" y="101" text-anchor="middle" fill="#bbf7d0" font-size="10">Mill / Lomi Style (-80% vol)</text>
+          <!-- Outputs -->
+          <g>
+            <rect x="640" y="42" width="150" height="56" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5" />
+            <text x="715" y="67" text-anchor="middle" fill="#14532d" font-size="12" font-weight="600">Compost / Dehydrate</text>
+            <text x="715" y="84" text-anchor="middle" fill="#166534" font-size="10">Mill / Lomi (-80% vol)</text>
           </g>
-          <g class="node">
-            <rect x="650" y="170" width="145" height="70" rx="10" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5" />
-            <text x="722" y="198" text-anchor="middle" fill="#eff6ff" font-size="12" font-weight="700">4:1 Compactor</text>
-            <text x="722" y="216" text-anchor="middle" fill="#bfdbfe" font-size="10">Clean Dry Task Bricks</text>
+          <g>
+            <rect x="640" y="162" width="150" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5" />
+            <text x="715" y="187" text-anchor="middle" fill="#1e3a8a" font-size="12" font-weight="600">4:1 Compactor</text>
+            <text x="715" y="204" text-anchor="middle" fill="#1d4ed8" font-size="10">Dry recyclable bricks</text>
           </g>
-          <g class="node">
-            <rect x="650" y="285" width="145" height="70" rx="10" fill="#334155" stroke="#94a3b8" stroke-width="1.5" />
-            <text x="722" y="313" text-anchor="middle" fill="#f8fafc" font-size="12" font-weight="700">Auto Heat-Sealer</text>
-            <text x="722" y="331" text-anchor="middle" fill="#cbd5e1" font-size="10">Townew-Style Task Bags</text>
+          <g>
+            <rect x="640" y="282" width="150" height="56" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5" />
+            <text x="715" y="307" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="600">Auto Heat-Sealer</text>
+            <text x="715" y="324" text-anchor="middle" fill="#475569" font-size="10">Townew-style task bags</text>
           </g>
 
-          <!-- Output Labels -->
-          <text x="898" y="86" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="600">Garden /</text>
-          <text x="898" y="100" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="600">Compost</text>
+          <!-- End Labels -->
+          <text x="844" y="67" fill="#15803d" font-size="11" font-weight="600">Garden</text>
+          <text x="844" y="81" fill="#57534e" font-size="10">1x / mo</text>
 
-          <text x="898" y="201" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="600">Curbside</text>
-          <text x="898" y="215" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="600">Recycle</text>
+          <text x="844" y="187" fill="#1d4ed8" font-size="11" font-weight="600">Curbside</text>
+          <text x="844" y="201" fill="#57534e" font-size="10">Clean dry</text>
 
-          <text x="898" y="316" text-anchor="middle" fill="#cbd5e1" font-size="11" font-weight="600">Sealed</text>
-          <text x="898" y="330" text-anchor="middle" fill="#cbd5e1" font-size="11" font-weight="600">Task Bag</text>
+          <text x="844" y="307" fill="#334155" font-size="11" font-weight="600">Sealed Bag</text>
+          <text x="844" y="321" fill="#57534e" font-size="10">Odor-locked</text>
 
           <!-- Moving Items Layer -->
           <g id="items-layer"></g>
         </svg>
       </div>
 
-      <div class="metrics-grid">
-        <div class="metric">
-          <span class="metric-label">Items Processed</span>
-          <strong id="stat-total" class="metric-value">0</strong>
+      <dl class="stats-bar">
+        <div>
+          <dt>Processed</dt>
+          <dd id="stat-total">0</dd>
         </div>
-        <div class="metric">
-          <span class="metric-label">Diverted from Landfill</span>
-          <strong id="stat-diverted" class="metric-value">0%</strong>
+        <div>
+          <dt>Diverted from landfill</dt>
+          <dd id="stat-diverted">0%</dd>
         </div>
-        <div class="metric">
-          <span class="metric-label">Est. Volume Reduction</span>
-          <strong class="metric-value">~75–80%</strong>
+        <div>
+          <dt>Volume reduction</dt>
+          <dd>75–80%</dd>
         </div>
-        <div class="metric">
-          <span class="metric-label">Human Touchpoints</span>
-          <strong class="metric-value">1x / month</strong>
+        <div>
+          <dt>Human touchpoints</dt>
+          <dd>1x / month</dd>
         </div>
-      </div>
+      </dl>
     </section>
 
-    <!-- Current Options, Costs & Credits -->
-    <section id="options" class="card">
-      <h2>2. Current Options, Costs &amp; Credits</h2>
-      <p class="muted">
-        Existing commercial building blocks that inspire or solve pieces of this pipeline today:
+    <section id="options" class="section">
+      <h2>## current options, costs &amp; credits</h2>
+      <p class="lead">
+        Real products solving pieces of this stack today, and where each falls short of full home autonomy.
       </p>
       <div class="table-wrap">
         <table>
           <thead>
             <tr>
-              <th>System / Product</th>
-              <th>Role in Pipeline</th>
+              <th>Product</th>
+              <th>Role</th>
               <th>Est. Cost (USD)</th>
-              <th>Pros &amp; Limits</th>
-              <th>Credit / Link</th>
+              <th>Trade-off</th>
+              <th>Credit</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Lomi (Lomi 2 / 3)</strong></td>
-              <td>Countertop food dehydrator &amp; grinder</td>
-              <td>~$499 (or $299 + $120/yr filters)</td>
-              <td>Fits ~$500 target; 3L capacity; ongoing filter/pod cost</td>
+              <td><strong>Lomi (2 / 3)</strong></td>
+              <td>Countertop food dehydrator</td>
+              <td class="num">~$499 <span class="sub">($299 + $120/yr)</span></td>
+              <td>Hits the ~$500 target; 3L capacity, ongoing filter/pod cost</td>
               <td><a href="https://lomi.com/" target="_blank" rel="noopener noreferrer">lomi.com</a></td>
             </tr>
             <tr>
               <td><strong>Mill Food Recycler</strong></td>
-              <td>Floor-standing food dehydrator &amp; grinder</td>
-              <td>$799 (Essential) – $1,149 (Plus)</td>
-              <td>6.5L capacity, 80% volume cut, monthly empty; higher upfront cost</td>
+              <td>Floor food dehydrator</td>
+              <td class="num">$799–$1,149</td>
+              <td>6.5L, 80% volume cut, monthly empty; higher upfront cost</td>
               <td><a href="https://www.mill.com/" target="_blank" rel="noopener noreferrer">mill.com</a></td>
             </tr>
             <tr>
               <td><strong>Laundry Jet</strong></td>
-              <td>Whole-home pneumatic vacuum transport</td>
-              <td>$1,869–$4,995+ hardware ($2.4k–$15k installed)</td>
-              <td>Proven room-to-hub suction; built for soft laundry, not wet/sharp trash</td>
+              <td>Whole-home vacuum pipes</td>
+              <td class="num">$1,869–$4,995+ <span class="sub">($2.4k–$15k inst.)</span></td>
+              <td>Proven room-to-hub suction; built for soft cloth, not wet trash</td>
               <td><a href="https://laundryjet.com/" target="_blank" rel="noopener noreferrer">laundryjet.com</a></td>
             </tr>
             <tr>
               <td><strong>TOWNEW (T1S / T3)</strong></td>
-              <td>Self-sealing &amp; auto-changing trash bin</td>
-              <td>~$85–$150 (+ refill rings)</td>
-              <td>Thermoplastic heat-sealing task bags; no sorting or compaction</td>
+              <td>Auto-sealing trash bin</td>
+              <td class="num">~$85–$150</td>
+              <td>Thermoplastic heat-sealed task bags; no sorting or compaction</td>
               <td><a href="https://mytownew.com/" target="_blank" rel="noopener noreferrer">mytownew.com</a></td>
             </tr>
             <tr>
               <td><strong>Envac</strong></td>
-              <td>District/building pneumatic waste pipes</td>
-              <td>Commercial / municipal scale</td>
-              <td>End-to-end automated underground transport; too costly for single homes</td>
+              <td>District pneumatic pipes</td>
+              <td class="num">Municipal scale</td>
+              <td>True automated transport; priced for apartment blocks, not single homes</td>
               <td><a href="https://www.envacgroup.com/" target="_blank" rel="noopener noreferrer">envacgroup.com</a></td>
             </tr>
           </tbody>
@@ -209,45 +187,43 @@
       </div>
     </section>
 
-    <!-- Open Questions -->
-    <section id="questions" class="card">
-      <h2>3. Open Questions (Help Design This)</h2>
-      <p class="muted">
-        Key engineering and economic bottlenecks we are exploring openly. Jump into GitHub Issues to weigh in:
+    <section id="questions" class="section">
+      <h2>## open questions</h2>
+      <p class="lead">
+        The four bottlenecks between today's appliances and a true end-to-end home system:
       </p>
-      <ul class="question-list">
+      <ol class="questions">
         <li>
-          <strong>Wet vs. Dry Separation:</strong> Should kitchens keep a dedicated ~$500 Mill/Lomi-style unit locally while pneumatic tubes only carry dry recyclables &amp; trash?
+          <strong>Wet vs. dry split:</strong> Keep a local ~$500 Mill/Lomi dehydrator in the kitchen while pneumatic tubes carry only dry recyclables and trash?
         </li>
         <li>
-          <strong>Pipe Clogging &amp; Cleaning:</strong> How do we prevent sticky residue, glass shards, or oversized cardboard from jamming 4–6&quot; residential vacuum tubes?
+          <strong>Clogs &amp; glass:</strong> How do 4–6&quot; residential vacuum pipes handle sticky residue, broken glass, or rigid cardboard without jamming?
         </li>
         <li>
-          <strong>Low-Cost Robotic Sorting:</strong> Can a single &lt;$600 camera + air-jet diverter + weight cell reliably separate PET, aluminum, paper, and landfill?
+          <strong>Sub-$600 robotic sorting:</strong> Can one camera + load cell + air-jet diverter reliably separate PET, aluminum, paper, and landfill?
         </li>
         <li>
-          <strong>Compact Task Bags &amp; Curbside Handoff:</strong> What is the cheapest reliable way to move sealed 4:1 compacted bricks from a garage hub to municipal bins?
+          <strong>Curbside handoff:</strong> What is the simplest way to move 4:1 compacted, heat-sealed task bricks from a garage hub to municipal bins?
         </li>
-      </ul>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/joshiujjwal/home-trash-future/issues/new" target="_blank" rel="noopener noreferrer">Propose an Answer or Idea</a>
-        <a class="btn btn-secondary" href="https://github.com/joshiujjwal/home-trash-future" target="_blank" rel="noopener noreferrer">View GitHub Repo</a>
-      </div>
+      </ol>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/joshiujjwal/home-trash-future/issues/new" target="_blank" rel="noopener noreferrer">Open a Question on GitHub ↗</a>
+        <a class="btn" href="https://github.com/joshiujjwal/home-trash-future" target="_blank" rel="noopener noreferrer">View Source Repo ↗</a>
+      </p>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
+    <footer class="doc-footer">
       <p>
-        Open-source concept &amp; architecture by <a href="https://github.com/joshiujjwal" target="_blank" rel="noopener noreferrer">@joshiujjwal</a>.
-        Credits to <a href="https://www.mill.com/" target="_blank" rel="noopener noreferrer">Mill</a>,
+        Open spec by <a href="https://github.com/joshiujjwal" target="_blank" rel="noopener noreferrer">@joshiujjwal</a> ·
+        Inspired by <a href="https://www.human-md.ai/" target="_blank" rel="noopener noreferrer">human-md.ai</a> ·
+        Credits: <a href="https://www.mill.com/" target="_blank" rel="noopener noreferrer">Mill</a>,
         <a href="https://lomi.com/" target="_blank" rel="noopener noreferrer">Lomi</a>,
         <a href="https://laundryjet.com/" target="_blank" rel="noopener noreferrer">Laundry Jet</a>,
-        <a href="https://mytownew.com/" target="_blank" rel="noopener noreferrer">TOWNEW</a>, and
+        <a href="https://mytownew.com/" target="_blank" rel="noopener noreferrer">TOWNEW</a>,
         <a href="https://www.envacgroup.com/" target="_blank" rel="noopener noreferrer">Envac</a>.
       </p>
-    </div>
-  </footer>
+    </footer>
+  </main>
 
   <script src="src/app.js"></script>
 </body>
