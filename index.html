@@ -15,12 +15,73 @@
         &gt; room vacuum ports → central robotic sorter → compact heat-sealed task bags.
       </blockquote>
       <div class="header-links">
+        <a href="#problem">Problem</a>
+        <a href="#analytics">Landfill Data</a>
+        <a href="#proposal">Sort-at-Source Proposal</a>
         <a href="#pipeline">Pipeline</a>
         <a href="#options">Options &amp; Costs</a>
-        <a href="#questions">Open Questions</a>
         <a href="https://github.com/joshiujjwal/home-trash-future/issues" target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a>
       </div>
     </header>
+
+    <section id="problem" class="section">
+      <h2>## the problem</h2>
+      <p class="lead">
+        Most household waste ends up in landfill not because people don't care, but because <strong>sorting at home is high-friction</strong>.
+      </p>
+      <ul class="plain-list">
+        <li><strong>Sorting fatigue:</strong> Three separate bins under a sink take up space, smell, and still force a manual decision on every wrapper.</li>
+        <li><strong>Contamination &amp; wish-cycling:</strong> One greasy pizza box or unwashed yogurt cup can contaminate an entire recycling batch, sending it straight to landfill.</li>
+        <li><strong>Wet + dry mixing:</strong> Food scraps ruin paper and cardboard in mixed bins, destroying recovery value before pickup.</li>
+      </ul>
+    </section>
+
+    <section id="analytics" class="section">
+      <h2>## what actually goes to landfill</h2>
+      <p class="lead">
+        Typical U.S. residential waste stream breakdown (EPA MSW composition). Over <strong>70%</strong> is recoverable if separated cleanly before it mixes:
+      </p>
+      <div class="bar-chart" role="list" aria-label="Household waste composition">
+        <div class="bar-row" role="listitem">
+          <span class="bar-label">Food &amp; organics</span>
+          <div class="bar-track"><div class="bar-fill bar-organic" style="width: 28%"></div></div>
+          <span class="bar-val">~28%</span>
+        </div>
+        <div class="bar-row" role="listitem">
+          <span class="bar-label">Paper &amp; cardboard</span>
+          <div class="bar-track"><div class="bar-fill bar-recycle" style="width: 23%"></div></div>
+          <span class="bar-val">~23%</span>
+        </div>
+        <div class="bar-row" role="listitem">
+          <span class="bar-label">Plastics</span>
+          <div class="bar-track"><div class="bar-fill bar-recycle" style="width: 12%"></div></div>
+          <span class="bar-val">~12%</span>
+        </div>
+        <div class="bar-row" role="listitem">
+          <span class="bar-label">Metals &amp; glass</span>
+          <div class="bar-track"><div class="bar-fill bar-recycle" style="width: 9%"></div></div>
+          <span class="bar-val">~9%</span>
+        </div>
+        <div class="bar-row" role="listitem">
+          <span class="bar-label">True landfill / other</span>
+          <div class="bar-track"><div class="bar-fill bar-landfill" style="width: 28%"></div></div>
+          <span class="bar-val">~28%</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="proposal" class="section">
+      <h2>## the proposal: sorting at source</h2>
+      <p class="lead">
+        Instead of retrofitting every wall with expensive vacuum pipes first, put a <strong>Robotic Vision Extension</strong> right on the end/top of the dustbin.
+      </p>
+      <ol class="questions">
+        <li><strong>Single drop-in opening:</strong> Toss any item into one bin lid — zero mental friction.</li>
+        <li><strong>Vision + weight collar (&lt;300ms):</strong> A cheap camera + edge vision model + load cell identifies material (food, PET, aluminum, paper, or residual) at the point of disposal.</li>
+        <li><strong>Motorized flap / rotary diverter:</strong> Routes the item into the right internal chamber — or into a pneumatic tube in whole-home setups.</li>
+        <li><strong>Compact task bags &amp; analytics:</strong> Organics go to a ~$500 dehydrator, recyclables compress 4:1, landfill heat-seals automatically, and every drop logs household diversion analytics.</li>
+      </ol>
+    </section>
 
     <section id="pipeline" class="section">
       <div class="section-head">

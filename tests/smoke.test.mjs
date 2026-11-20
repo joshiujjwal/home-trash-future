@@ -34,3 +34,12 @@ test("should link to GitHub Issues for open questions", () => {
     /https:\/\/github\.com\/joshiujjwal\/home-trash-future\/issues/
   );
 });
+
+test("should include problem statement, landfill analytics, and sort-at-source proposal", () => {
+  assert.match(html, /id="problem"/);
+  assert.match(html, /id="analytics"/);
+  assert.match(html, /id="proposal"/);
+  assert.match(html, /Sort at Source|sorting at source/i);
+  assert.match(html, /vision/i);
+});
+

@@ -227,3 +227,62 @@ td.num {
   font-size: 0.85rem;
   color: var(--ink-muted);
 }
+
+.plain-list {
+  margin: 0;
+  padding-left: 20px;
+  max-width: 68ch;
+}
+
+.plain-list li {
+  margin-bottom: 10px;
+}
+
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 640px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.bar-label {
+  color: var(--ink);
+}
+
+.bar-track {
+  height: 10px;
+  background: var(--hairline);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+.bar-organic {
+  background: #15803d;
+}
+
+.bar-recycle {
+  background: #1d4ed8;
+}
+
+.bar-landfill {
+  background: #57534e;
+}
+
+.bar-val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-muted);
+}
