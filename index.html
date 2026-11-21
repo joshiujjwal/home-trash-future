@@ -6,6 +6,8 @@
   <meta name="description" content="An open question about household trash: environmental data, research on sorting behavior, AI sorting, and current options such as Mill and Lomi." />
   <title>home-trash-future — An Open Question About Household Waste</title>
   <link rel="stylesheet" href="src/styles.css" />
+  <link rel="alternate" type="text/markdown" href="tldr.md" />
+  <link rel="describedby" href="llms.txt" />
 </head>
 <body>
   <main class="page">
@@ -16,13 +18,33 @@
         Is the barrier effort, motivation, infrastructure, or some combination? Could AI, robotics, and vision help?
       </blockquote>
       <nav class="header-links" aria-label="Page sections">
+        <a href="#tldr">TLDR</a>
         <a href="#problem">The Question</a>
         <a href="#analytics">Data &amp; Research</a>
         <a href="#questions">Open Questions</a>
         <a href="#options">Current Options</a>
+        <a href="#sources">Sources</a>
+        <a href="tldr.md">Markdown TLDR</a>
         <a href="https://github.com/joshiujjwal/home-trash-future/issues" target="_blank" rel="noopener noreferrer">Discussion on GitHub ↗</a>
       </nav>
     </header>
+
+    <figure class="visual illustration">
+      <img src="src/household-waste.svg" width="860" height="300" alt="A home and everyday waste, surrounded by open questions about effort, motivation, and access." />
+      <figcaption>Original illustration of the question, not a proposed waste-management system.</figcaption>
+    </figure>
+
+    <section id="tldr" class="section">
+      <h2>## TLDR</h2>
+      <ul class="plain-list">
+        <li><strong>The scale:</strong> 50% of U.S. municipal waste was landfilled in 2018. This includes residential and commercial/institutional waste, not households alone. <a class="citation" href="#source-1" aria-label="Source 1: EPA national waste data">[1]</a></li>
+        <li><strong>The climate impact:</strong> Food accounts for an estimated 58% of methane escaping U.S. municipal landfills. That is a modeled estimate, not a share of all U.S. methane. <a class="citation" href="#source-2" aria-label="Source 2: EPA food waste methane model">[2]</a></li>
+        <li><strong>The behavior question:</strong> A Northern Ireland study found confusion and competing priorities alongside environmental concern; it does not prove that most people do not care. <a class="citation" href="#source-5" aria-label="Source 5: Recycling behavior study">[5]</a></li>
+        <li><strong>The technology question:</strong> AI sorting is deployed at industrial facilities, but that does not establish a reliable, affordable home sorter. <a class="citation" href="#source-6" aria-label="Source 6: Industrial computer vision review">[6]</a> <a class="citation" href="#source-7" aria-label="Source 7: Reporting on industrial AI sorting">[7]</a></li>
+        <li><strong>Beyond the bin:</strong> Preventing wasted food can avoid production impacts that better disposal cannot fully offset. <a class="citation" href="#source-4" aria-label="Source 4: EPA food waste life-cycle review">[4]</a></li>
+      </ul>
+      <p class="lead">Still open: how much is effort, motivation, or infrastructure, and where could engineering actually help?</p>
+    </section>
 
     <section id="problem" class="section">
       <h2>## the question</h2>
@@ -66,8 +88,18 @@
       <p>
         The remaining waste was managed through combustion with energy recovery or other food-management pathways.
         Tons here are U.S. short tons.
-        Source: <a href="https://www.epa.gov/facts-and-figures-about-materials-waste-and-recycling/national-overview-facts-and-figures-materials" target="_blank" rel="noopener noreferrer">EPA, National Overview: Facts and Figures on Materials, Wastes and Recycling (2018 data)</a>.
+        <a class="citation" href="#source-1" aria-label="Source 1: EPA national waste data">[1]</a>
       </p>
+      <figure class="visual data-visual">
+        <img src="src/waste-composition.svg" width="860" height="340" loading="lazy" alt="Selected shares of U.S. municipal waste generated in 2018: paper 23.1%, food 21.6%, plastics 12.2%, and yard trimmings 12.1%." />
+        <figcaption>
+          Source: EPA national municipal solid waste data, 2018; percentages by weight.
+          Selected categories, not a complete waste breakdown or a household recovery forecast.
+          <a class="citation" href="#source-1" aria-label="Source 1: EPA national waste data">[1]</a>
+        </figcaption>
+      </figure>
+      <details class="data-table">
+        <summary>View the chart data as a table</summary>
       <div class="table-wrap">
         <table>
           <caption>Selected materials as a share of all U.S. municipal waste generated, 2018</caption>
@@ -82,6 +114,7 @@
           </tbody>
         </table>
       </div>
+      </details>
       <p>
         These are selected categories, not a complete breakdown. Material composition is not the same as
         recyclability or a potential household diversion rate; local acceptance and downstream processing matter.
@@ -93,13 +126,20 @@
         it produces <strong>58%</strong> of fugitive methane emissions from U.S. municipal solid waste landfills.
         This is a <strong>modeled estimate</strong>, not a measurement of every landfill or a share of all U.S. methane.
         The report models emissions from 1990 to 2020.
-        Source: <a href="https://www.epa.gov/land-research/quantifying-methane-emissions-landfilled-food-waste" target="_blank" rel="noopener noreferrer">EPA, Quantifying Methane Emissions from Landfilled Food Waste (October 2023)</a>.
+        <a class="citation" href="#source-2" aria-label="Source 2: EPA food waste methane model">[2]</a>
+      </p>
+      <p>
+        <strong>Measurements are a separate line of evidence.</strong> A 2024 study in <em>Science</em> used airborne
+        imaging spectrometers across 18 U.S. states and detected significant methane point sources at
+        <strong>52% of surveyed landfills</strong>. The study concerns surveyed large landfills, not the fraction
+        of emissions caused by food. It does not independently validate EPA's 58% food-specific model.
+        <a class="citation" href="#source-3" aria-label="Source 3: Airborne landfill methane measurements in Science">[3]</a>
       </p>
       <p>
         Environmental impact is not just a bin problem. EPA's review of approximately <strong>250 life-cycle analyses</strong>
         finds that preventing wasted food, donation, and upcycling can avoid additional food production;
         downstream treatment does much less to offset the impacts of producing that food.
-        Source: <a href="https://www.epa.gov/land-research/field-bin-environmental-impacts-us-food-waste-management-pathways" target="_blank" rel="noopener noreferrer">EPA, From Field to Bin: The Environmental Impacts of U.S. Food Waste Management Pathways (October 2023)</a>.
+        <a class="citation" href="#source-4" aria-label="Source 4: EPA food waste life-cycle review">[4]</a>
       </p>
 
       <h3>Is it inconvenience, or do people not care?</h3>
@@ -113,10 +153,16 @@
         This convenience-sampled, regional study does not establish what most people worldwide think
         or prove that one barrier causes non-participation. It does suggest that “people don't care”
         and “it's only an efficiency problem” are both incomplete explanations.
-        Source: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9064103/" target="_blank" rel="noopener noreferrer">Roy, Berry &amp; Dempster, “If it is not made easy for me, I will just not bother” (May 3, 2022)</a>.
+        <a class="citation" href="#source-5" aria-label="Source 5: Recycling behavior study">[5]</a>
       </p>
 
       <h3>AI sorting exists — at facility scale</h3>
+      <p>
+        A <strong>2025 IEEE Access review</strong> of industrial-grade waste classification notes that much prior
+        computer-vision work uses controlled, simplified laboratory setups or other non-industrial scenarios.
+        A model recognizing an item is not the same as a validated end-to-end sorting system.
+        <a class="citation" href="#source-6" aria-label="Source 6: Industrial computer vision review">[6]</a>
+      </p>
       <p>
         <strong>Fortune's June 2025 reporting</strong> describes AMP's deployed systems using cameras, AI,
         and air jets to identify and separate materials on processing lines. It reports an initial
@@ -128,7 +174,7 @@
         sorter that reliably handles every mixed item. The article's recovery and cost-saving figures
         are attributed to AMP's founder, not presented as independent household trials.
         Identification also does not establish that an item will ultimately be recycled.
-        Source: <a href="https://fortune.com/2025/06/26/ai-recycling-trash-amp-robotics/" target="_blank" rel="noopener noreferrer">Chris Stokel-Walker, Fortune: Recycling has been a flop, financially. AMP is using AI to make it pay off (June 26, 2025)</a>.
+        <a class="citation" href="#source-7" aria-label="Source 7: Reporting on industrial AI sorting">[7]</a>
       </p>
     </section>
 
@@ -221,9 +267,51 @@
     </section>
 
     <footer class="doc-footer">
+      <h2 id="sources">## sources &amp; evidence</h2>
+      <p>Numbered citations link claims to the references below. Product links in the options table are listings, not independent evidence of environmental benefits.</p>
+      <ol class="references">
+        <li id="source-1">
+          <strong>Official national dataset.</strong>
+          <a href="https://www.epa.gov/facts-and-figures-about-materials-waste-and-recycling/national-overview-facts-and-figures-materials" target="_blank" rel="noopener noreferrer">EPA, National Overview: Facts and Figures on Materials, Wastes and Recycling</a>.
+          Data year: 2018. Municipal waste, including residential and commercial/institutional sources; not household-only.
+        </li>
+        <li id="source-2">
+          <strong>Government modeling study.</strong>
+          <a href="https://www.epa.gov/land-research/quantifying-methane-emissions-landfilled-food-waste" target="_blank" rel="noopener noreferrer">EPA, Quantifying Methane Emissions from Landfilled Food Waste</a>.
+          October 2023, EPA-600-R-23-064. Models 1990–2020 emissions; the 58% figure is food's estimated share of fugitive municipal landfill methane.
+        </li>
+        <li id="source-3">
+          <strong>Primary research, peer-reviewed.</strong>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11904827/" target="_blank" rel="noopener noreferrer">Cusworth et al., Quantifying methane emissions from United States landfills</a>.
+          <em>Science</em> 383, 1499–1504 (March 2024). DOI: 10.1126/science.adi7735.
+          Airborne measurements of surveyed large landfills; point-source detection is not a national food-attribution estimate.
+        </li>
+        <li id="source-4">
+          <strong>Government evidence synthesis.</strong>
+          <a href="https://www.epa.gov/land-research/field-bin-environmental-impacts-us-food-waste-management-pathways" target="_blank" rel="noopener noreferrer">EPA, From Field to Bin: The Environmental Impacts of U.S. Food Waste Management Pathways</a>.
+          October 2023, EPA-600-R-23-065. Reviews approximately 250 life-cycle analyses; not a head-to-head test of household appliances.
+        </li>
+        <li id="source-5">
+          <strong>Primary research, peer-reviewed.</strong>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9064103/" target="_blank" rel="noopener noreferrer">Roy, Berry &amp; Dempster, “If it is not made easy for me, I will just not bother”</a>.
+          <em>PLOS ONE</em> 17(5), e0267284 (May 2022). DOI: 10.1371/journal.pone.0267284.
+          Northern Ireland convenience sample: 18 interviews and 756 survey participants; not a representative global survey.
+        </li>
+        <li id="source-6">
+          <strong>Peer-reviewed technical review.</strong>
+          <a href="https://doi.org/10.1109/ACCESS.2025.3603903" target="_blank" rel="noopener noreferrer">Thielmann et al., A Review of Computer Vision for Industrial-Grade Waste Classification</a>.
+          <em>IEEE Access</em> 13, 151934–151953 (2025). DOI: 10.1109/ACCESS.2025.3603903.
+          Industrial classification literature, not proof of consumer home-sorting performance.
+        </li>
+        <li id="source-7">
+          <strong>Reporting, not an independent performance trial.</strong>
+          <a href="https://fortune.com/2025/06/26/ai-recycling-trash-amp-robotics/" target="_blank" rel="noopener noreferrer">Chris Stokel-Walker, Recycling has been a flop, financially. AMP is using AI to make it pay off</a>.
+          <em>Fortune</em>, June 26, 2025. Deployment reporting; recovery and cost-saving claims are attributed to the company.
+        </li>
+      </ol>
       <p>
         An open question by <a href="https://github.com/joshiujjwal" target="_blank" rel="noopener noreferrer">@joshiujjwal</a>.
-        Research citations are linked alongside the claims they support. No proposed system or simulated outcomes.
+        No proposed system or simulated outcomes.
       </p>
     </footer>
   </main>

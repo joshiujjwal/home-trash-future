@@ -58,7 +58,7 @@ test("should include dated, sourced waste data with its scope and uncertainty", 
 
 test("should put neutrally described current options at the bottom", () => {
   const sections = [...html.matchAll(/<section id="([^"]+)"/g)].map((match) => match[1]);
-  assert.deepEqual(sections, ["problem", "analytics", "questions", "options"]);
+  assert.deepEqual(sections, ["tldr", "problem", "analytics", "questions", "options"]);
   const options = html.match(/<section id="options"[\s\S]*?<\/section>/)?.[0];
   assert.ok(options);
   assert.match(options, /Mill Food Recycler/);
@@ -84,32 +84,33 @@ test("should keep navigation valid and external citations safe", () => {
   }
 });
 
-test("should provide a Markdown version with the same citations and options last", () => {
-  const markdown = fs.readFileSync(path.join(rootDir, "url.md"), "utf8");
-  assert.match(markdown, /^# What does the future of household trash look like\?/);
-  assert.match(markdown, /An open question, not a proposed solution/);
-  assert.match(markdown, /not a household-only/);
-  assert.match(markdown, /modeled estimate/);
-  assert.match(markdown, /not evidence of an affordable household/);
-  const headings = [...markdown.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
+test("should provide a single TLDR Markdown version with the research citations and options last", () => {
+  const summary = fs.readFileSync(path.join(rootDir, "tldr.md"), "utf8");
+  assert.equal(fs.existsSync(path.join(rootDir, "url.md")), false);
+  assert.match(summary, /^# Household trash: TLDR/);
+  assert.match(summary, /An open question, not a proposed solution/);
+  assert.match(summary, /not households alone/);
+  assert.match(summary, /modeled estimate/);
+  assert.match(summary, /not proof of an affordable home sorter/);
+  const headings = [...summary.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
   assert.deepEqual(headings, [
-    "The question",
-    "Data & research",
-    "Open questions",
-    "Current options & related systems",
+    "What the evidence says",
+    "Still open",
+    "Current options",
   ]);
-  const externalUrls = new Set(
+  const researchUrls = new Set(
     [...html.matchAll(/href="(https:\/\/[^"]+)"/g)].map((match) => match[1])
+      .filter((url) => /^https:\/\/(?:www\.epa\.gov|pmc\.ncbi\.nlm\.nih\.gov|fortune\.com)\//.test(url))
   );
-  for (const url of externalUrls) {
-    assert.ok(markdown.includes(url), `Missing Markdown source: ${url}`);
+  for (const url of researchUrls) {
+    assert.ok(summary.includes(url), `Missing TLDR source: ${url}`);
   }
 });
 
 test("should provide a linked, cited TLDR with current options at the bottom", () => {
   const summary = fs.readFileSync(path.join(rootDir, "tldr.md"), "utf8");
-  const markdown = fs.readFileSync(path.join(rootDir, "url.md"), "utf8");
-  assert.match(markdown, /\[TLDR\]\(tldr\.md\)/);
+  assert.match(html, /<a href="tldr\.md">/);
+  assert.doesNotMatch(summary, /url\.md/);
   assert.match(summary, /^# Household trash: TLDR/);
   assert.match(summary, /open question, not a proposed solution/i);
   assert.match(summary, /2018/);
@@ -124,4 +125,66 @@ test("should provide a linked, cited TLDR with current options at the bottom", (
   assert.equal(headings.at(-1), "Current options");
   assert.match(summary, /Mill/);
   assert.match(summary, /Lomi/);
+});
+
+test("should show a sourced TLDR near the top of the page", () => {
+  const summary = html.match(/<section id="tldr"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(summary);
+  assert.ok(html.indexOf('id="tldr"') < html.indexOf('id="problem"'));
+  assert.match(summary, /2018/);
+  assert.match(summary, /58%/);
+  assert.match(summary, /modeled/i);
+  assert.match(summary, /Northern Ireland/);
+  assert.match(summary, /industrial/i);
+  assert.match(summary, /href="#source-1"/);
+});
+
+test("should make the sole Markdown version discoverable through HTML and llms.txt", () => {
+  const llms = fs.readFileSync(path.join(rootDir, "llms.txt"), "utf8");
+  assert.match(html, /<link rel="alternate" type="text\/markdown" href="tldr\.md" \/>/);
+  assert.match(html, /<link rel="describedby" href="llms\.txt" \/>/);
+  assert.match(llms, /^# home-trash-future\n/);
+  assert.match(llms, /\[TLDR\]\(https:\/\/joshiujjwal\.github\.io\/home-trash-future\/tldr\.md\)/);
+  assert.doesNotMatch(html + llms, /url\.md/);
+});
+
+test("should include accessible original visuals with a source below the data graph", () => {
+  assert.match(html, /<img src="src\/household-waste\.svg"[^>]+alt="[^"]+"/);
+  assert.match(html, /<img src="src\/waste-composition\.svg"[^>]+alt="[^"]+"/);
+  const graph = [...html.matchAll(/<figure\b[^>]*>[\s\S]*?<\/figure>/g)]
+    .map((match) => match[0])
+    .find((figure) => figure.includes('src="src/waste-composition.svg"'));
+  assert.ok(graph);
+  assert.match(graph, /<figcaption>[\s\S]*2018[\s\S]*href="#source-1"/);
+  for (const file of ["household-waste.svg", "waste-composition.svg"]) {
+    const svg = fs.readFileSync(path.join(rootDir, "src", file), "utf8");
+    assert.match(svg, /<svg[^>]+viewBox="/);
+    assert.match(svg, /<title[^>]*>[^<]+<\/title>/);
+    assert.match(svg, /<desc[^>]*>[^<]+<\/desc>/);
+  }
+});
+
+test("should distinguish measured methane and industrial vision research from modeled and product claims", () => {
+  const summary = fs.readFileSync(path.join(rootDir, "tldr.md"), "utf8");
+  for (const content of [html, summary]) {
+    assert.match(content, /https:\/\/pmc\.ncbi\.nlm\.nih\.gov\/articles\/PMC11904827\//);
+    assert.match(content, /https:\/\/doi\.org\/10\.1109\/ACCESS\.2025\.3603903/);
+    assert.match(content, /52%/);
+    assert.match(content, /surveyed/i);
+    assert.match(content, /IEEE Access/);
+  }
+});
+
+test("should resolve numbered claim citations to references below the article", () => {
+  const references = html.match(/<footer[^>]*>[\s\S]*?<\/footer>/)?.[0];
+  assert.ok(references);
+  assert.match(references, /id="sources"/);
+  assert.ok(html.indexOf('id="sources"') > html.indexOf('id="options"'));
+  const citations = [...html.matchAll(/class="citation" href="#(source-\d+)"/g)];
+  assert.ok(citations.length >= 7);
+  for (const match of citations) {
+    assert.ok(references.includes(`id="${match[1]}"`), `Missing numbered reference: ${match[1]}`);
+  }
+  assert.match(references, /Primary research/);
+  assert.match(references, /Reporting/);
 });

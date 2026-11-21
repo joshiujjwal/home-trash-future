@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" role="img" aria-labelledby="illustration-title illustration-desc">
+  <title id="illustration-title">Household waste is an open question</title>
+  <desc id="illustration-desc">An original illustration of a home beside everyday food scraps and packaging. Three question cards ask about effort, motivation, and access. No automated pipeline or solution is depicted.</desc>
+  <rect width="860" height="300" rx="12" fill="#f3f1ea" />
+  <circle cx="716" cy="95" r="64" fill="#e8eee3" />
+  <g stroke="#1c1917" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M44 143L151 54L258 143" fill="none" />
+    <path d="M65 129V249H237V129L151 58Z" fill="#ffffff" />
+    <rect x="137" y="180" width="39" height="69" rx="3" fill="#d6d3cd" />
+    <rect x="89" y="144" width="30" height="31" rx="3" fill="#bfdbfe" />
+    <rect x="186" y="144" width="30" height="31" rx="3" fill="#bfdbfe" />
+    <path d="M40 250H480" stroke="#a8a29e" />
+    <path d="M285 155H358L350 247H293Z" fill="#d6d3cd" />
+    <path d="M278 154H365 M305 143H338" />
+    <path d="M310 178V227 M333 178V227" stroke="#78716c" />
+    <path d="M381 193L410 181L448 196L419 210Z" fill="#dec6a2" />
+    <path d="M381 193V235L419 250L448 235V196 M419 210V250" fill="#ecd9b8" />
+    <path d="M378 140C362 147 360 164 377 171C392 178 408 164 406 151C401 139 390 134 378 140Z" fill="#bbf7d0" stroke="#15803d" />
+    <path d="M386 142L395 128" stroke="#15803d" />
+    <path d="M446 135V148L437 157V178Q437 186 447 186H465Q475 186 475 178V157L466 148V135Z" fill="#bfdbfe" stroke="#1d4ed8" />
+    <path d="M446 135H466" stroke="#1d4ed8" />
+  </g>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="52" y="279" fill="#57534e" font-size="13">Everyday waste. Unsettled questions.</text>
+    <g fill="#ffffff" stroke="#d6d3cd">
+      <rect x="522" y="42" width="292" height="58" rx="10" />
+      <rect x="522" y="121" width="292" height="58" rx="10" />
+      <rect x="522" y="200" width="292" height="58" rx="10" />
+    </g>
+    <g fill="#1c1917" font-size="21" font-weight="600">
+      <text x="545" y="79">How much effort?</text>
+      <text x="545" y="158">How much motivation?</text>
+      <text x="545" y="237">What access is missing?</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+# home-trash-future
+
+> Cited research and open questions about household waste, sorting behavior, environmental impacts, and AI. Not a proposed solution or product recommendation.
+
+The HTML article includes the full discussion, original visuals, and numbered references. The Markdown file is a concise summary. National municipal waste data is from 2018 and is not household-only. Keep modeled estimates, measured findings, deployment reporting, and manufacturer claims distinct.
+
+## Content
+
+- [TLDR](https://joshiujjwal.github.io/home-trash-future/tldr.md): The sole Markdown version of the page, with source links, limitations, open questions, and current options.

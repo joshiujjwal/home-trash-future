@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" role="img" aria-labelledby="chart-title chart-desc">
+  <title id="chart-title">Selected U.S. municipal waste materials, 2018</title>
+  <desc id="chart-desc">Horizontal bars show shares of total generated municipal waste by weight: paper and paperboard 23.1 percent, food 21.6 percent, plastics 12.2 percent, and yard trimmings 12.1 percent. These are selected categories, not a complete breakdown. Source: EPA national 2018 data.</desc>
+  <rect width="860" height="340" rx="12" fill="#ffffff" />
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="28" y="38" font-size="22" font-weight="700" fill="#1c1917">What is in the waste stream?</text>
+    <text x="28" y="64" font-size="14" fill="#57534e">U.S. municipal solid waste generated in 2018 | Share by weight</text>
+    <g stroke="#e7e5e0" stroke-width="1">
+      <path d="M220 94V276 M320 94V276 M420 94V276 M520 94V276 M620 94V276 M720 94V276" />
+    </g>
+    <g fill="#57534e" font-size="13" text-anchor="middle">
+      <text x="220" y="296">0%</text>
+      <text x="320" y="296">5%</text>
+      <text x="420" y="296">10%</text>
+      <text x="520" y="296">15%</text>
+      <text x="620" y="296">20%</text>
+      <text x="720" y="296">25%</text>
+    </g>
+    <g fill="#1c1917" font-size="16">
+      <text x="28" y="121">Paper &amp; paperboard</text>
+      <text x="28" y="169">Food</text>
+      <text x="28" y="217">Plastics</text>
+      <text x="28" y="265">Yard trimmings</text>
+    </g>
+    <rect x="220" y="100" width="462" height="30" rx="4" fill="#1d4ed8" />
+    <rect x="220" y="148" width="432" height="30" rx="4" fill="#15803d" />
+    <rect x="220" y="196" width="244" height="30" rx="4" fill="#a16207" />
+    <rect x="220" y="244" width="242" height="30" rx="4" fill="#4d7c0f" />
+    <g fill="#1c1917" font-size="16" font-weight="700">
+      <text x="696" y="121">23.1%</text>
+      <text x="666" y="169">21.6%</text>
+      <text x="478" y="217">12.2%</text>
+      <text x="476" y="265">12.1%</text>
+    </g>
+    <text x="28" y="324" font-size="12" fill="#57534e">Selected categories only. Includes residential and commercial/institutional waste.</text>
+  </g>
+</svg>

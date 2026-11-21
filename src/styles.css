@@ -228,6 +228,65 @@ td.num {
   color: var(--ink-muted);
 }
 
+.visual {
+  margin: 24px 0;
+}
+
+.visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.visual figcaption {
+  margin-top: 10px;
+  max-width: 76ch;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+}
+
+.data-visual {
+  overflow-x: auto;
+}
+
+.data-visual img {
+  min-width: 640px;
+}
+
+.illustration {
+  margin-top: 32px;
+}
+
+.citation {
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+.data-table {
+  margin: 20px 0;
+}
+
+.data-table summary {
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.references {
+  padding-left: 24px;
+}
+
+.references li {
+  margin-bottom: 18px;
+  overflow-wrap: anywhere;
+}
+
+[id] {
+  scroll-margin-top: 24px;
+}
+
 .plain-list {
   margin: 0;
   padding-left: 20px;
