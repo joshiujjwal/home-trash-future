@@ -3,289 +3,229 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>home-trash-future — End-to-End Automated Household Waste</title>
+  <meta name="description" content="An open question about household trash: environmental data, research on sorting behavior, AI sorting, and current options such as Mill and Lomi." />
+  <title>home-trash-future — An Open Question About Household Waste</title>
   <link rel="stylesheet" href="src/styles.css" />
 </head>
 <body>
   <main class="page">
     <header class="doc-header">
-      <h1>home-trash-future</h1>
+      <h1>What does the future of household trash look like?</h1>
       <blockquote class="manifesto">
-        &gt; a working spec for zero-touch household waste.<br />
-        &gt; room vacuum ports → central robotic sorter → compact heat-sealed task bags.
+        An open question, not a proposed solution.<br />
+        Is the barrier effort, motivation, infrastructure, or some combination? Could AI, robotics, and vision help?
       </blockquote>
-      <div class="header-links">
-        <a href="#problem">Problem</a>
-        <a href="#analytics">Landfill Data</a>
-        <a href="#proposal">Sort-at-Source Proposal</a>
-        <a href="#pipeline">Pipeline</a>
-        <a href="#options">Options &amp; Costs</a>
-        <a href="https://github.com/joshiujjwal/home-trash-future/issues" target="_blank" rel="noopener noreferrer">GitHub Issues ↗</a>
-      </div>
+      <nav class="header-links" aria-label="Page sections">
+        <a href="#problem">The Question</a>
+        <a href="#analytics">Data &amp; Research</a>
+        <a href="#questions">Open Questions</a>
+        <a href="#options">Current Options</a>
+        <a href="https://github.com/joshiujjwal/home-trash-future/issues" target="_blank" rel="noopener noreferrer">Discussion on GitHub ↗</a>
+      </nav>
     </header>
 
     <section id="problem" class="section">
-      <h2>## the problem</h2>
+      <h2>## the question</h2>
       <p class="lead">
-        Most household waste ends up in landfill not because people don't care, but because <strong>sorting at home is high-friction</strong>.
+        Household trash still involves deciding what goes where, storing it, and taking it out.
+        How much of that friction could be engineered away? How much depends on habits, willingness,
+        local collection rules, and whether recovered materials have somewhere to go?
       </p>
-      <ul class="plain-list">
-        <li><strong>Sorting fatigue:</strong> Three separate bins under a sink take up space, smell, and still force a manual decision on every wrapper.</li>
-        <li><strong>Contamination &amp; wish-cycling:</strong> One greasy pizza box or unwashed yogurt cup can contaminate an entire recycling batch, sending it straight to landfill.</li>
-        <li><strong>Wet + dry mixing:</strong> Food scraps ruin paper and cardboard in mixed bins, destroying recovery value before pickup.</li>
-      </ul>
+      <p>
+        The evidence below does not settle that question. National waste statistics, a study of recycling
+        behavior, and industrial sorting deployments describe different parts of the problem;
+        none alone establishes what would work in a home.
+      </p>
     </section>
 
     <section id="analytics" class="section">
-      <h2>## what actually goes to landfill</h2>
+      <h2>## data &amp; research</h2>
+      <h3>How much waste, and where does it go?</h3>
       <p class="lead">
-        Typical U.S. residential waste stream breakdown (EPA MSW composition). Over <strong>70%</strong> is recoverable if separated cleanly before it mixes:
+        EPA's national municipal solid waste figures cover <strong>2018</strong>. They include residential
+        and commercial/institutional waste: this is <strong>not a household-only</strong> dataset or a measurement of today's waste stream.
       </p>
-      <div class="bar-chart" role="list" aria-label="Household waste composition">
-        <div class="bar-row" role="listitem">
-          <span class="bar-label">Food &amp; organics</span>
-          <div class="bar-track"><div class="bar-fill bar-organic" style="width: 28%"></div></div>
-          <span class="bar-val">~28%</span>
-        </div>
-        <div class="bar-row" role="listitem">
-          <span class="bar-label">Paper &amp; cardboard</span>
-          <div class="bar-track"><div class="bar-fill bar-recycle" style="width: 23%"></div></div>
-          <span class="bar-val">~23%</span>
-        </div>
-        <div class="bar-row" role="listitem">
-          <span class="bar-label">Plastics</span>
-          <div class="bar-track"><div class="bar-fill bar-recycle" style="width: 12%"></div></div>
-          <span class="bar-val">~12%</span>
-        </div>
-        <div class="bar-row" role="listitem">
-          <span class="bar-label">Metals &amp; glass</span>
-          <div class="bar-track"><div class="bar-fill bar-recycle" style="width: 9%"></div></div>
-          <span class="bar-val">~9%</span>
-        </div>
-        <div class="bar-row" role="listitem">
-          <span class="bar-label">True landfill / other</span>
-          <div class="bar-track"><div class="bar-fill bar-landfill" style="width: 28%"></div></div>
-          <span class="bar-val">~28%</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="proposal" class="section">
-      <h2>## the proposal: sorting at source</h2>
-      <p class="lead">
-        Instead of retrofitting every wall with expensive vacuum pipes first, put a <strong>Robotic Vision Extension</strong> right on the end/top of the dustbin.
-      </p>
-      <ol class="questions">
-        <li><strong>Single drop-in opening:</strong> Toss any item into one bin lid — zero mental friction.</li>
-        <li><strong>Vision + weight collar (&lt;300ms):</strong> A cheap camera + edge vision model + load cell identifies material (food, PET, aluminum, paper, or residual) at the point of disposal.</li>
-        <li><strong>Motorized flap / rotary diverter:</strong> Routes the item into the right internal chamber — or into a pneumatic tube in whole-home setups.</li>
-        <li><strong>Compact task bags &amp; analytics:</strong> Organics go to a ~$500 dehydrator, recyclables compress 4:1, landfill heat-seals automatically, and every drop logs household diversion analytics.</li>
-      </ol>
-    </section>
-
-    <section id="pipeline" class="section">
-      <div class="section-head">
-        <h2>## the pipeline</h2>
-        <div class="controls" role="group" aria-label="Simulation controls">
-          <button id="toggle-play" class="btn btn-primary" type="button">Pause</button>
-          <button id="drop-organic" class="btn" type="button">+ Organic</button>
-          <button id="drop-recycle" class="btn" type="button">+ Recyclable</button>
-          <button id="drop-landfill" class="btn" type="button">+ Landfill</button>
-        </div>
-      </div>
-      <p class="lead">
-        Drop items into any room inlet. Dry waste travels by vacuum or gravity to one central hub; wet food waste stays local in a ~$500–$1,000 dehydrator.
-      </p>
-
-      <div class="diagram-frame">
-        <svg id="pipeline-svg" viewBox="0 0 920 380" role="img" aria-label="Animated household waste sorting and compaction pipeline">
-          <!-- Pipes -->
-          <path id="pipe-kitchen" d="M 130 70 C 225 70, 235 190, 330 190" fill="none" stroke="#d6d3cd" stroke-width="12" stroke-linecap="round" />
-          <path id="pipe-bath" d="M 130 190 L 330 190" fill="none" stroke="#d6d3cd" stroke-width="12" stroke-linecap="round" />
-          <path id="pipe-office" d="M 130 310 C 225 310, 235 190, 330 190" fill="none" stroke="#d6d3cd" stroke-width="12" stroke-linecap="round" />
-
-          <!-- Hub to Sorter Outputs -->
-          <path id="pipe-compost" d="M 470 190 C 545 190, 555 70, 640 70" fill="none" stroke="#bbf7d0" stroke-width="10" stroke-linecap="round" />
-          <path id="pipe-recycle" d="M 470 190 L 640 190" fill="none" stroke="#bfdbfe" stroke-width="10" stroke-linecap="round" />
-          <path id="pipe-landfill" d="M 470 190 C 545 190, 555 310, 640 310" fill="none" stroke="#e2e8f0" stroke-width="10" stroke-linecap="round" />
-
-          <!-- Output to Curbside -->
-          <line x1="790" y1="70" x2="835" y2="70" stroke="#15803d" stroke-width="2" stroke-dasharray="4 4" />
-          <line x1="790" y1="190" x2="835" y2="190" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="4 4" />
-          <line x1="790" y1="310" x2="835" y2="310" stroke="#475569" stroke-width="2" stroke-dasharray="4 4" />
-
-          <!-- Room Inlets -->
-          <g>
-            <rect x="16" y="42" width="114" height="56" rx="6" fill="#ffffff" stroke="#1c1917" stroke-width="1.5" />
-            <text x="73" y="67" text-anchor="middle" fill="#1c1917" font-size="13" font-weight="600">Kitchen</text>
-            <text x="73" y="84" text-anchor="middle" fill="#57534e" font-size="11">Vacuum port</text>
-          </g>
-          <g>
-            <rect x="16" y="162" width="114" height="56" rx="6" fill="#ffffff" stroke="#1c1917" stroke-width="1.5" />
-            <text x="73" y="187" text-anchor="middle" fill="#1c1917" font-size="13" font-weight="600">Bathrooms</text>
-            <text x="73" y="204" text-anchor="middle" fill="#57534e" font-size="11">Gravity chute</text>
-          </g>
-          <g>
-            <rect x="16" y="282" width="114" height="56" rx="6" fill="#ffffff" stroke="#1c1917" stroke-width="1.5" />
-            <text x="73" y="307" text-anchor="middle" fill="#1c1917" font-size="13" font-weight="600">Office / Bed</text>
-            <text x="73" y="324" text-anchor="middle" fill="#57534e" font-size="11">Dry port</text>
-          </g>
-
-          <!-- Central Robotic Hub -->
-          <g>
-            <rect x="330" y="132" width="140" height="116" rx="8" fill="#1c1917" stroke="#1c1917" stroke-width="1.5" />
-            <text x="400" y="172" text-anchor="middle" fill="#faf9f6" font-size="14" font-weight="600">Central Hub</text>
-            <text x="400" y="193" text-anchor="middle" fill="#d6d3d1" font-size="11">Vision + NIR + Load</text>
-            <text x="400" y="212" text-anchor="middle" fill="#a8a29e" font-size="10">Air-jet / delta diverter</text>
-          </g>
-
-          <!-- Outputs -->
-          <g>
-            <rect x="640" y="42" width="150" height="56" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="1.5" />
-            <text x="715" y="67" text-anchor="middle" fill="#14532d" font-size="12" font-weight="600">Compost / Dehydrate</text>
-            <text x="715" y="84" text-anchor="middle" fill="#166534" font-size="10">Mill / Lomi (-80% vol)</text>
-          </g>
-          <g>
-            <rect x="640" y="162" width="150" height="56" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="1.5" />
-            <text x="715" y="187" text-anchor="middle" fill="#1e3a8a" font-size="12" font-weight="600">4:1 Compactor</text>
-            <text x="715" y="204" text-anchor="middle" fill="#1d4ed8" font-size="10">Dry recyclable bricks</text>
-          </g>
-          <g>
-            <rect x="640" y="282" width="150" height="56" rx="6" fill="#f8fafc" stroke="#475569" stroke-width="1.5" />
-            <text x="715" y="307" text-anchor="middle" fill="#0f172a" font-size="12" font-weight="600">Auto Heat-Sealer</text>
-            <text x="715" y="324" text-anchor="middle" fill="#475569" font-size="10">Townew-style task bags</text>
-          </g>
-
-          <!-- End Labels -->
-          <text x="844" y="67" fill="#15803d" font-size="11" font-weight="600">Garden</text>
-          <text x="844" y="81" fill="#57534e" font-size="10">1x / mo</text>
-
-          <text x="844" y="187" fill="#1d4ed8" font-size="11" font-weight="600">Curbside</text>
-          <text x="844" y="201" fill="#57534e" font-size="10">Clean dry</text>
-
-          <text x="844" y="307" fill="#334155" font-size="11" font-weight="600">Sealed Bag</text>
-          <text x="844" y="321" fill="#57534e" font-size="10">Odor-locked</text>
-
-          <!-- Moving Items Layer -->
-          <g id="items-layer"></g>
-        </svg>
-      </div>
-
       <dl class="stats-bar">
         <div>
-          <dt>Processed</dt>
-          <dd id="stat-total">0</dd>
+          <dt>U.S. waste generated, 2018</dt>
+          <dd>292.4 million tons</dd>
         </div>
         <div>
-          <dt>Diverted from landfill</dt>
-          <dd id="stat-diverted">0%</dd>
+          <dt>Per person per day</dt>
+          <dd>4.9 lb</dd>
         </div>
         <div>
-          <dt>Volume reduction</dt>
-          <dd>75–80%</dd>
+          <dt>Landfilled</dt>
+          <dd>50%</dd>
         </div>
         <div>
-          <dt>Human touchpoints</dt>
-          <dd>1x / month</dd>
+          <dt>Recycled &amp; composted</dt>
+          <dd>32.1%</dd>
         </div>
       </dl>
-    </section>
-
-    <section id="options" class="section">
-      <h2>## current options, costs &amp; credits</h2>
-      <p class="lead">
-        Real products solving pieces of this stack today, and where each falls short of full home autonomy.
+      <p>
+        The remaining waste was managed through combustion with energy recovery or other food-management pathways.
+        Tons here are U.S. short tons.
+        Source: <a href="https://www.epa.gov/facts-and-figures-about-materials-waste-and-recycling/national-overview-facts-and-figures-materials" target="_blank" rel="noopener noreferrer">EPA, National Overview: Facts and Figures on Materials, Wastes and Recycling (2018 data)</a>.
       </p>
       <div class="table-wrap">
         <table>
+          <caption>Selected materials as a share of all U.S. municipal waste generated, 2018</caption>
           <thead>
-            <tr>
-              <th>Product</th>
-              <th>Role</th>
-              <th>Est. Cost (USD)</th>
-              <th>Trade-off</th>
-              <th>Credit</th>
-            </tr>
+            <tr><th scope="col">Material</th><th scope="col">Share by weight</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td><strong>Lomi (2 / 3)</strong></td>
-              <td>Countertop food dehydrator</td>
-              <td class="num">~$499 <span class="sub">($299 + $120/yr)</span></td>
-              <td>Hits the ~$500 target; 3L capacity, ongoing filter/pod cost</td>
-              <td><a href="https://lomi.com/" target="_blank" rel="noopener noreferrer">lomi.com</a></td>
-            </tr>
-            <tr>
-              <td><strong>Mill Food Recycler</strong></td>
-              <td>Floor food dehydrator</td>
-              <td class="num">$799–$1,149</td>
-              <td>6.5L, 80% volume cut, monthly empty; higher upfront cost</td>
-              <td><a href="https://www.mill.com/" target="_blank" rel="noopener noreferrer">mill.com</a></td>
-            </tr>
-            <tr>
-              <td><strong>Laundry Jet</strong></td>
-              <td>Whole-home vacuum pipes</td>
-              <td class="num">$1,869–$4,995+ <span class="sub">($2.4k–$15k inst.)</span></td>
-              <td>Proven room-to-hub suction; built for soft cloth, not wet trash</td>
-              <td><a href="https://laundryjet.com/" target="_blank" rel="noopener noreferrer">laundryjet.com</a></td>
-            </tr>
-            <tr>
-              <td><strong>TOWNEW (T1S / T3)</strong></td>
-              <td>Auto-sealing trash bin</td>
-              <td class="num">~$85–$150</td>
-              <td>Thermoplastic heat-sealed task bags; no sorting or compaction</td>
-              <td><a href="https://mytownew.com/" target="_blank" rel="noopener noreferrer">mytownew.com</a></td>
-            </tr>
-            <tr>
-              <td><strong>Envac</strong></td>
-              <td>District pneumatic pipes</td>
-              <td class="num">Municipal scale</td>
-              <td>True automated transport; priced for apartment blocks, not single homes</td>
-              <td><a href="https://www.envacgroup.com/" target="_blank" rel="noopener noreferrer">envacgroup.com</a></td>
-            </tr>
+            <tr><th scope="row">Paper &amp; paperboard</th><td class="num">23.1%</td></tr>
+            <tr><th scope="row">Food</th><td class="num">21.6%</td></tr>
+            <tr><th scope="row">Plastics</th><td class="num">12.2%</td></tr>
+            <tr><th scope="row">Yard trimmings</th><td class="num">12.1%</td></tr>
           </tbody>
         </table>
       </div>
+      <p>
+        These are selected categories, not a complete breakdown. Material composition is not the same as
+        recyclability or a potential household diversion rate; local acceptance and downstream processing matter.
+      </p>
+
+      <h3>Food waste has an outsized methane impact</h3>
+      <p>
+        Food accounts for about <strong>24%</strong> of municipal waste landfilled by weight, but EPA estimates
+        it produces <strong>58%</strong> of fugitive methane emissions from U.S. municipal solid waste landfills.
+        This is a <strong>modeled estimate</strong>, not a measurement of every landfill or a share of all U.S. methane.
+        The report models emissions from 1990 to 2020.
+        Source: <a href="https://www.epa.gov/land-research/quantifying-methane-emissions-landfilled-food-waste" target="_blank" rel="noopener noreferrer">EPA, Quantifying Methane Emissions from Landfilled Food Waste (October 2023)</a>.
+      </p>
+      <p>
+        Environmental impact is not just a bin problem. EPA's review of approximately <strong>250 life-cycle analyses</strong>
+        finds that preventing wasted food, donation, and upcycling can avoid additional food production;
+        downstream treatment does much less to offset the impacts of producing that food.
+        Source: <a href="https://www.epa.gov/land-research/field-bin-environmental-impacts-us-food-waste-management-pathways" target="_blank" rel="noopener noreferrer">EPA, From Field to Bin: The Environmental Impacts of U.S. Food Waste Management Pathways (October 2023)</a>.
+      </p>
+
+      <h3>Is it inconvenience, or do people not care?</h3>
+      <p>
+        A <strong>2022 PLOS ONE study</strong> used interviews with <strong>18 adults</strong> and an online survey
+        of <strong>756 adults in Northern Ireland</strong>. It identified confusion about recyclable plastics,
+        competing daily priorities, and expectations that government and manufacturers should make recycling easier.
+        Environmental concern and inconsistent recycling behavior coexisted.
+      </p>
+      <p>
+        This convenience-sampled, regional study does not establish what most people worldwide think
+        or prove that one barrier causes non-participation. It does suggest that “people don't care”
+        and “it's only an efficiency problem” are both incomplete explanations.
+        Source: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9064103/" target="_blank" rel="noopener noreferrer">Roy, Berry &amp; Dempster, “If it is not made easy for me, I will just not bother” (May 3, 2022)</a>.
+      </p>
+
+      <h3>AI sorting exists — at facility scale</h3>
+      <p>
+        <strong>Fortune's June 2025 reporting</strong> describes AMP's deployed systems using cameras, AI,
+        and air jets to identify and separate materials on processing lines. It reports an initial
+        Waste Connections agreement for <strong>24 robotic systems</strong>, expanded to include
+        <strong>50 facilities</strong> in 2022.
+      </p>
+      <p>
+        This is evidence of industrial deployment, <strong>not evidence of an affordable household</strong>
+        sorter that reliably handles every mixed item. The article's recovery and cost-saving figures
+        are attributed to AMP's founder, not presented as independent household trials.
+        Identification also does not establish that an item will ultimately be recycled.
+        Source: <a href="https://fortune.com/2025/06/26/ai-recycling-trash-amp-robotics/" target="_blank" rel="noopener noreferrer">Chris Stokel-Walker, Fortune: Recycling has been a flop, financially. AMP is using AI to make it pay off (June 26, 2025)</a>.
+      </p>
     </section>
 
     <section id="questions" class="section">
       <h2>## open questions</h2>
-      <p class="lead">
-        The four bottlenecks between today's appliances and a true end-to-end home system:
-      </p>
       <ol class="questions">
-        <li>
-          <strong>Wet vs. dry split:</strong> Keep a local ~$500 Mill/Lomi dehydrator in the kitchen while pneumatic tubes carry only dry recyclables and trash?
-        </li>
-        <li>
-          <strong>Clogs &amp; glass:</strong> How do 4–6&quot; residential vacuum pipes handle sticky residue, broken glass, or rigid cardboard without jamming?
-        </li>
-        <li>
-          <strong>Sub-$600 robotic sorting:</strong> Can one camera + load cell + air-jet diverter reliably separate PET, aluminum, paper, and landfill?
-        </li>
-        <li>
-          <strong>Curbside handoff:</strong> What is the simplest way to move 4:1 compacted, heat-sealed task bricks from a garage hub to municipal bins?
-        </li>
+        <li><strong>Behavior:</strong> How much would participation change if sorting took less effort? What remains when access and confusing rules are accounted for?</li>
+        <li><strong>Where to sort:</strong> What are the environmental and economic trade-offs between sorting at home and recovering materials at a facility?</li>
+        <li><strong>AI &amp; robotics:</strong> Can household-scale systems cope with dirty packaging, mixed materials, liquids, and unsafe objects at an acceptable cost?</li>
+        <li><strong>Actual outcomes:</strong> How should electricity, consumables, maintenance, collection, and the final destination of material be counted alongside convenience?</li>
+        <li><strong>Prevention:</strong> Could better household feedback reduce waste before it enters any bin, rather than only making disposal easier?</li>
       </ol>
       <p class="cta-row">
-        <a class="btn btn-primary" href="https://github.com/joshiujjwal/home-trash-future/issues/new" target="_blank" rel="noopener noreferrer">Open a Question on GitHub ↗</a>
-        <a class="btn" href="https://github.com/joshiujjwal/home-trash-future" target="_blank" rel="noopener noreferrer">View Source Repo ↗</a>
+        <a class="btn btn-primary" href="https://github.com/joshiujjwal/home-trash-future/issues/new" target="_blank" rel="noopener noreferrer">Discuss an Open Question ↗</a>
+        <a class="btn" href="https://github.com/joshiujjwal/home-trash-future" target="_blank" rel="noopener noreferrer">View Sources &amp; Repo ↗</a>
+      </p>
+    </section>
+
+    <section id="options" class="section">
+      <h2>## current options &amp; related systems</h2>
+      <p class="lead">
+        Examples, not recommendations or a proposed stack. Product capabilities below are manufacturer claims
+        unless noted; they are not independent environmental comparisons.
+        Listings checked <time datetime="2026-11-21">November 21, 2026</time>.
+        Prices and availability can change.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <caption>Household products and larger-scale reference systems</caption>
+          <thead>
+            <tr>
+              <th scope="col">Option</th>
+              <th scope="col">What it does</th>
+              <th scope="col">Listed cost / availability</th>
+              <th scope="col">Scope &amp; limitations</th>
+              <th scope="col">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mill Food Recycler</strong></td>
+              <td>Processes food scraps into dried grounds; advertises 80% food-volume reduction.</td>
+              <td>From $999 on the homepage; promotions vary.</td>
+              <td>Food scraps, not mixed-trash sorting. Volume reduction alone does not establish landfill diversion; the grounds' destination matters.</td>
+              <td><a href="https://www.mill.com/" target="_blank" rel="noopener noreferrer">Mill</a></td>
+            </tr>
+            <tr>
+              <td><strong>Lomi 3</strong></td>
+              <td>Countertop food recycler with a 3L bucket; heats and grinds scraps.</td>
+              <td>$499 standalone, or $299 plus $120/year membership, on the sale listing. Listed as pre-order.</td>
+              <td>Food processing, not mixed-trash sorting. The manufacturer describes the output as pre-compost; filters and electricity are additional inputs.</td>
+              <td><a href="https://lomi.com/products/lomi-3-food-recycler" target="_blank" rel="noopener noreferrer">Lomi 3 listing</a> · <a href="https://lomi.com/" target="_blank" rel="noopener noreferrer">Lomi</a></td>
+            </tr>
+            <tr>
+              <td><strong>TOWNEW</strong></td>
+              <td>Self-sealing and self-changing trash bags.</td>
+              <td>Retailer-dependent; no verified price quoted here.</td>
+              <td>Bag handling rather than material sorting. Uses refill rings. Linked site is a product roundup, not an independent performance study.</td>
+              <td><a href="https://mytownew.com/" target="_blank" rel="noopener noreferrer">Product roundup</a></td>
+            </tr>
+            <tr>
+              <td><strong>Laundry Jet</strong></td>
+              <td>Vacuum-powered transport of clothing from room ports to a laundry room.</td>
+              <td>Installation quote required.</td>
+              <td>A related transport system, not a household trash product. Clothing transport does not demonstrate compatibility with mixed waste.</td>
+              <td><a href="https://laundryjet.com/" target="_blank" rel="noopener noreferrer">Laundry Jet</a></td>
+            </tr>
+            <tr>
+              <td><strong>Envac</strong></td>
+              <td>Pneumatic waste-collection infrastructure reference.</td>
+              <td>Project-specific; current details not verified.</td>
+              <td>Larger-scale infrastructure, not a countertop appliance. The linked site could not be retrieved during this check.</td>
+              <td><a href="https://www.envacgroup.com/" target="_blank" rel="noopener noreferrer">Envac</a></td>
+            </tr>
+            <tr>
+              <td><strong>AMP</strong></td>
+              <td>AI-based sorting at waste-processing facilities.</td>
+              <td>Facility-scale commercial systems.</td>
+              <td>Industrial deployment reported by Fortune; not a consumer home sorter.</td>
+              <td><a href="https://fortune.com/2025/06/26/ai-recycling-trash-amp-robotics/" target="_blank" rel="noopener noreferrer">Fortune reporting</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Local recycling and food-scrap collection, home composting, and ordinary bins are also relevant comparisons;
+        availability, accepted materials, space, and costs depend on location.
+        No appliance's volume-reduction claim should be read as a verified reduction in total household waste or emissions.
       </p>
     </section>
 
     <footer class="doc-footer">
       <p>
-        Open spec by <a href="https://github.com/joshiujjwal" target="_blank" rel="noopener noreferrer">@joshiujjwal</a> ·
-        Inspired by <a href="https://www.human-md.ai/" target="_blank" rel="noopener noreferrer">human-md.ai</a> ·
-        Credits: <a href="https://www.mill.com/" target="_blank" rel="noopener noreferrer">Mill</a>,
-        <a href="https://lomi.com/" target="_blank" rel="noopener noreferrer">Lomi</a>,
-        <a href="https://laundryjet.com/" target="_blank" rel="noopener noreferrer">Laundry Jet</a>,
-        <a href="https://mytownew.com/" target="_blank" rel="noopener noreferrer">TOWNEW</a>,
-        <a href="https://www.envacgroup.com/" target="_blank" rel="noopener noreferrer">Envac</a>.
+        An open question by <a href="https://github.com/joshiujjwal" target="_blank" rel="noopener noreferrer">@joshiujjwal</a>.
+        Research citations are linked alongside the claims they support. No proposed system or simulated outcomes.
       </p>
     </footer>
   </main>
-
-  <script src="src/app.js"></script>
 </body>
 </html>
