@@ -83,3 +83,25 @@ test("should keep navigation valid and external citations safe", () => {
     }
   }
 });
+
+test("should provide a Markdown version with the same citations and options last", () => {
+  const markdown = fs.readFileSync(path.join(rootDir, "url.md"), "utf8");
+  assert.match(markdown, /^# What does the future of household trash look like\?/);
+  assert.match(markdown, /An open question, not a proposed solution/);
+  assert.match(markdown, /not a household-only/);
+  assert.match(markdown, /modeled estimate/);
+  assert.match(markdown, /not evidence of an affordable household/);
+  const headings = [...markdown.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
+  assert.deepEqual(headings, [
+    "The question",
+    "Data & research",
+    "Open questions",
+    "Current options & related systems",
+  ]);
+  const externalUrls = new Set(
+    [...html.matchAll(/href="(https:\/\/[^"]+)"/g)].map((match) => match[1])
+  );
+  for (const url of externalUrls) {
+    assert.ok(markdown.includes(url), `Missing Markdown source: ${url}`);
+  }
+});
