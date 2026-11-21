@@ -4,7 +4,7 @@
 >
 > Is the barrier effort, motivation, infrastructure, or some combination? Could AI, robotics, and vision help?
 
-[Website](https://joshiujjwal.github.io/home-trash-future/) | [Discussion on GitHub](https://github.com/joshiujjwal/home-trash-future/issues)
+[Website](https://joshiujjwal.github.io/home-trash-future/) | [TLDR](tldr.md) | [Discussion on GitHub](https://github.com/joshiujjwal/home-trash-future/issues)
 
 ## The question
 

@@ -105,3 +105,23 @@ test("should provide a Markdown version with the same citations and options last
     assert.ok(markdown.includes(url), `Missing Markdown source: ${url}`);
   }
 });
+
+test("should provide a linked, cited TLDR with current options at the bottom", () => {
+  const summary = fs.readFileSync(path.join(rootDir, "tldr.md"), "utf8");
+  const markdown = fs.readFileSync(path.join(rootDir, "url.md"), "utf8");
+  assert.match(markdown, /\[TLDR\]\(tldr\.md\)/);
+  assert.match(summary, /^# Household trash: TLDR/);
+  assert.match(summary, /open question, not a proposed solution/i);
+  assert.match(summary, /2018/);
+  assert.match(summary, /modeled estimate/);
+  assert.match(summary, /Northern Ireland/);
+  assert.match(summary, /not proof of an affordable home sorter/i);
+  const sourceUrls = [...summary.matchAll(/\]\((https:\/\/[^)]+)\)/g)].map((match) => match[1]);
+  assert.ok(sourceUrls.some((url) => url.startsWith("https://www.epa.gov/")));
+  assert.ok(sourceUrls.includes("https://pmc.ncbi.nlm.nih.gov/articles/PMC9064103/"));
+  assert.ok(sourceUrls.includes("https://fortune.com/2025/06/26/ai-recycling-trash-amp-robotics/"));
+  const headings = [...summary.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
+  assert.equal(headings.at(-1), "Current options");
+  assert.match(summary, /Mill/);
+  assert.match(summary, /Lomi/);
+});
